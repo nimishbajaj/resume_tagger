@@ -68,7 +68,7 @@ def preprocess_data(path):
       i += 1
 
     for i, x in enumerate(data):
-      print(data[x])
+      # print(data[x])
       if i==HEAD:
         break
 
