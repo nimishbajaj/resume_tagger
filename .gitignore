@@ -134,3 +134,4 @@ embedding/
 logs/
 resume_corpus/
 training_1/
+.idea/
