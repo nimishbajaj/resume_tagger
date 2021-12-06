@@ -23,8 +23,20 @@ MAX_LEN = 2000
 MAX_WORDS = 5000
 EMBEDDING_SIZE = 100
 EPOCHS = 50
+NUM_THREADS = 32
 GLOVE_EMBEDDING = f"./embedding/glove.6B.{EMBEDDING_SIZE}d.txt"
 
+os.environ["OMP_NUM_THREADS"] = str(NUM_THREADS)
+os.environ["TF_NUM_INTRAOP_THREADS"] = str(NUM_THREADS)
+os.environ["TF_NUM_INTEROP_THREADS"] = str(NUM_THREADS)
+
+tf.config.threading.set_inter_op_parallelism_threads(
+    NUM_THREADS
+)
+tf.config.threading.set_intra_op_parallelism_threads(
+    NUM_THREADS
+)
+tf.config.set_soft_device_placement(True)
 
 def preprocess_data(path):
     data = defaultdict(dict)
@@ -123,14 +135,9 @@ with tf.device('/cpu:0'):
     sequences = tokenizer.texts_to_sequences(df['content'])
     x = pad_sequences(sequences, maxlen=MAX_LEN)
 
-
-
-
     train = df
     x_train = train["content"].str.lower()
     y_train = train[unique_labels].values
-
-
 
     tokenizer = tf.keras.preprocessing.text.Tokenizer(num_words=MAX_WORDS, lower=True)
 
