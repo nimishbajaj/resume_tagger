@@ -10,6 +10,7 @@ import pandas as pd
 import os
 import nltk
 from nltk.stem import WordNetLemmatizer
+from nltk.tokenize import WhitespaceTokenizer
 wn = WordNetLemmatizer()
 stopwords = nltk.corpus.stopwords.words('english')
 import re
@@ -65,8 +66,6 @@ def preprocess_data(path):
       df[unique_label]=df['label'].apply(lambda x: 1 if unique_label in x else 0)
     df.drop('label', axis=1, inplace=True)
 
-
-
     print(df.columns)
     print("orignal data")
     print(df.head())
@@ -87,18 +86,17 @@ def clean_data(df, column_name = "content"):
         resumeText = re.sub('s+', ' ', resumeText)  # remove extra whitespace
         return resumeText
 
-    def removeStopWords(resumeText):
-        tokenizer = nltk.tokenize.RegexpTokenizer('w+')
-        tokens = tokenizer.tokenize(resumeText)
-        out = ""
-        for word in tokens:
-            if word.lower() not in stopwords:
-                out += wn.lemmatize(word)
-        return out
+    # def removeStopWords(resumeText):
+    #     tokens =
+    #     out = []
+    #     for word in tokens:
+    #         if word.lower() not in stopwords:
+    #             out.append(word)
+    #     return " ".join(out)
 
-    df[column_name] = df.content.apply(lambda x: cleanResume(x))
-    df[column_name] = df.content.apply(lambda x: removeStopWords(x))
-
+    df[column_name] = df[column_name].apply(lambda x: cleanResume(x))
+    # df[column_name] = df.content.apply(lambda x: removeStopWords(x))
+    #
     print("Cleaned data")
     print(df.head())
     return df
