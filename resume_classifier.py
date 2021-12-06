@@ -174,7 +174,7 @@ avg_pool = tf.keras.layers.GlobalAveragePooling1D()(x)
 max_pool = tf.keras.layers.GlobalMaxPooling1D()(x)
 
 x = tf.keras.layers.concatenate([avg_pool, max_pool])
-x = tf.keras.layers.Dense(10, activation='relu')(x)
+# x = tf.keras.layers.Dense(10, activation='relu')(x)
 preds = tf.keras.layers.Dense(len(unique_labels), activation="sigmoid")(x)
 
 model = tf.keras.Model(input, preds)
