@@ -135,6 +135,8 @@ with tf.device('/cpu:0'):
     model.fit(x_train, y_train, validation_split=0.2, batch_size=batch_size,
               epochs=EPOCHS, callbacks=callbacks, verbose=1)
 
+    
+
     model.save(checkpoint_dir, save_format='tf')
 
     latest = tf.train.latest_checkpoint(checkpoint_dir)
