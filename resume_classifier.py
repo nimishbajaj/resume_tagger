@@ -17,9 +17,6 @@ import re
 import utils
 from config import *
 
-# Constants
-
-
 os.environ["OMP_NUM_THREADS"] = str(NUM_THREADS)
 os.environ["TF_NUM_INTRAOP_THREADS"] = str(NUM_THREADS)
 os.environ["TF_NUM_INTEROP_THREADS"] = str(NUM_THREADS)
@@ -135,7 +132,7 @@ with tf.device('/cpu:0'):
     model.fit(x_train, y_train, validation_split=0.2, batch_size=batch_size,
               epochs=EPOCHS, callbacks=callbacks, verbose=1)
 
-    
+    save_model(model, BASE_FP)
 
     model.save(checkpoint_dir, save_format='tf')
 

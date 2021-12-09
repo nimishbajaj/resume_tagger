@@ -10,7 +10,7 @@ checkpoint_dir = os.path.dirname(checkpoint_path)
 from tensorflow import keras
 
 
-def load_model(base_fp):
+def load_model(base_fp=BASE_FP):
     # Model reconstruction from JSON file
     arch_json_fp = '{}-architecture.json'.format(base_fp)
     if not os.path.isfile(arch_json_fp):
@@ -25,7 +25,7 @@ def load_model(base_fp):
     print('Loaded model from file ({}).'.format(base_fp))
     return model
 
-model = load_model(checkpoint_dir)
+model = load_model()
 df, unique_labels = utils.preprocess_data(PATH)
 df = utils.clean_data(df)
 train = df
