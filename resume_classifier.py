@@ -24,7 +24,7 @@ MAX_WORDS = 5000
 EMBEDDING_SIZE = 100
 EPOCHS = 50
 NUM_THREADS = 32
-GLOVE_EMBEDDING = f"./embedding/glove.6B.{EMBEDDING_SIZE}d.txt"
+GLOVE_EMBEDDING = f"/home/nimishbajaj/resume_tagger/embedding/glove.6B.{EMBEDDING_SIZE}d.txt"
 
 os.environ["OMP_NUM_THREADS"] = str(NUM_THREADS)
 os.environ["TF_NUM_INTRAOP_THREADS"] = str(NUM_THREADS)
