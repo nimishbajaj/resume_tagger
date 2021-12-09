@@ -47,10 +47,7 @@ def label_freq(df, unique_labels):
                          rotation=45,
                          horizontalalignment='right')
 
-tf.debugging.set_log_device_placement(True)
-gpus = tf.config.list_logical_devices('GPU')
-strategy = tf.distribute.MirroredStrategy(gpus)
-with strategy.scope():
+with tf.device('/cpu:0'):
     from tensorflow.keras.preprocessing.text import Tokenizer
     from tensorflow.keras.preprocessing.sequence import pad_sequences
     tokenizer = Tokenizer(num_words=MAX_WORDS, lower=True)
