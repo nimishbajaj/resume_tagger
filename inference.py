@@ -4,13 +4,28 @@ import tensorflow as tf
 import numpy as np
 from config import *
 
-MAX_LEN = 2000
-checkpoint_path = "./training_1/cp.ckpt"
+
 checkpoint_dir = os.path.dirname(checkpoint_path)
 
 from tensorflow import keras
-model = keras.models.load_model(checkpoint_dir)
 
+
+def load_model(base_fp):
+    # Model reconstruction from JSON file
+    arch_json_fp = '{}-architecture.json'.format(base_fp)
+    if not os.path.isfile(arch_json_fp):
+        return None
+
+    with open(arch_json_fp, 'r') as f:
+        model = keras.models.model_from_json(f.read())
+
+    # Load weights into the new model
+    model.load_weights('{}-weights.{}'.format(base_fp, FILE_TYPE))
+
+    print('Loaded model from file ({}).'.format(base_fp))
+    return model
+
+model = load_model(checkpoint_dir)
 df, unique_labels = utils.preprocess_data(PATH)
 df = utils.clean_data(df)
 train = df

@@ -47,6 +47,12 @@ def label_freq(df, unique_labels):
                          rotation=45,
                          horizontalalignment='right')
 
+def save_model(model, base_fp):
+    # save the model: first the weights then the arch
+    model.save_weights('{}-weights.{}'.format(base_fp, FILE_TYPE))
+    with open('{}-architecture.json'.format(base_fp), 'w') as f:
+        f.write(model.to_json())
+
 with tf.device('/cpu:0'):
     from tensorflow.keras.preprocessing.text import Tokenizer
     from tensorflow.keras.preprocessing.sequence import pad_sequences
