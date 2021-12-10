@@ -1,0 +1,2 @@
+model_checkpoint_path: "trainsz50000_epochs1-weights.tf"
+all_model_checkpoint_paths: "trainsz50000_epochs1-weights.tf"
