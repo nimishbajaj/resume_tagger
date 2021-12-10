@@ -43,7 +43,7 @@ def preprocess_data(path):
     df = pd.DataFrame(list(data.values()))
     df = df.dropna()
     for unique_label in unique_labels:
-      df[unique_label]=df['label'].apply(lambda x: 1 if unique_label in x else 0)
+      df[unique_label]=df['label'].apply(lambda x: 1 if unique_label.split("\n")[0] in x else 0)
     df.drop('label', axis=1, inplace=True)
 
     print(df.columns)
